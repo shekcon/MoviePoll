@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from .models import Question, Choice
 
 
@@ -11,10 +10,12 @@ def index(request, *args, **kwargs):
     }
     return render(request, 'polls/index.html', content)
 
+
 def get_answer_question(_id):
     question = Question.objects.get(id=_id)
     answers = question.answer.all()
     return question, answers
+
 
 def detail(request, question_id):
     
@@ -23,7 +24,7 @@ def detail(request, question_id):
         movie = Choice.objects.get(id=request.POST.get('choice'))
         movie.votes += 1
         movie.save()
-        return result(request, question_id)
+        return redirect('../result/' + str(question_id))
 
     question, answers = get_answer_question(question_id)
     content = {
@@ -32,8 +33,9 @@ def detail(request, question_id):
     }
     return render(request, 'polls/detail.html', content)
     
-def result(request, _id):
-    question, answers = get_answer_question(_id)
+
+def result(request, question_id):
+    question, answers = get_answer_question(question_id)
     content = {
         'result': answers,
         'question': question
