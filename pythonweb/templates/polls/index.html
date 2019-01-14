@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block context %}
+    <br>
+    <h3> Detail </h3>
+    <ul>
+        
+        {% for q in questions %}
+        <li>
+            <div>
+                <a href="{% url 'detail' q.id %}"> {{ q.question_text }}</a>
+            </div>
+        </li>
+        {% endfor %}
+       
+    </ul>
+    
+{% endblock %}
+
+{% block extrastyle %}
+    <!-- <link rel="stylesheet" href="{% static 'css/question.css' %}"> -->
+{% endblock %}
