@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block context %}
-    <h1> Result Page</h1>
+    <h3>{{question.question_text}}</h3>
+    <ul>
+        {% for ans in result %}
+            <li>{{ ans.choice_text }}: {{ ans.votes }} votes</li>
+        {% endfor%}
+    </ul>
+    
 {% endblock %}

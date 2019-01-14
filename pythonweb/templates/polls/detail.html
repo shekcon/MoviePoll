@@ -2,10 +2,11 @@
 
 {% block context %}
     <h2> {{ question.question_text}}</h2>
-    <ul>
-        <li>OldFather</li>
-        <li>Anime</li>
-        <li>SAO</li>
-        <li>Blindbox</li>
-    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        {% for ans in answers %}
+            <input type="radio" name='choice' value="{{ ans.id }}">{{ ans.choice_text}}<br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
 {% endblock %}
