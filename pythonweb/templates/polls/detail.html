@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block context %}
-    <h2> {{ question.question_text}}</h2>
+    <h3> {{ question.question_text}}</h3>
     <form method="POST">
         {% csrf_token %}
         {% for ans in answers %}
-            <input type="radio" name='choice' value="{{ ans.id }}">{{ ans.choice_text}}<br>
+            <input type="radio" name='choice' value="{{ ans.id }}" class='movie'>{{ ans.choice_text}}<br>
         {% endfor %}
-        <input type="submit" value="Submit">
+        <div>
+            <button type="submit"  class="button">Submit</button>
+        </div>
+        
     </form>
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}

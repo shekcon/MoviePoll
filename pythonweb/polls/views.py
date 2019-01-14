@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Question, Choice
 
 
@@ -12,7 +12,7 @@ def index(request, *args, **kwargs):
 
 
 def get_answer_question(_id):
-    question = Question.objects.get(id=_id)
+    question = get_object_or_404(Question, id=_id)
     answers = question.answer.all()
     return question, answers
 
@@ -24,7 +24,7 @@ def detail(request, question_id):
         movie = Choice.objects.get(id=request.POST.get('choice'))
         movie.votes += 1
         movie.save()
-        return redirect('../result/' + str(question_id))
+        return redirect('result', question_id=question_id)
 
     question, answers = get_answer_question(question_id)
     content = {

@@ -3,22 +3,25 @@
 {% load static %}
 
 {% block context %}
-    <br>
-    <h3> Detail </h3>
-    <ul>
-        
-        {% for q in questions %}
-        <li>
+    <div class="header">
+    {% if not questions %}
+        <h3> Don't have any available question</h3>
+    {% else %}
+        <h3> List of Questions </h3>
+        <ul>
+            
+            {% for q in questions %}
             <div>
                 <a href="{% url 'detail' q.id %}"> {{ q.question_text }}</a>
             </div>
-        </li>
-        {% endfor %}
-       
-    </ul>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    
     
 {% endblock %}
 
 {% block extrastyle %}
-    <!-- <link rel="stylesheet" href="{% static 'css/question.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}

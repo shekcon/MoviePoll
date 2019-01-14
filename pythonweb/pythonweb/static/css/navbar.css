@@ -1,0 +1,17 @@
+.container {
+    background: #10284e;
+    width: 100%;
+    height: 20%;
+}
+
+.link a{
+    margin-top: 20px;   
+    color: #fff;
+    text-decoration: none;
+    font-size: 25px;
+    margin-left: 50px;
+}
+
+.link {
+    margin-top: 20px;
+}

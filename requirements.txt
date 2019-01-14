@@ -1,0 +1,4 @@
+django
+pylint
+pylint-django
+pep8

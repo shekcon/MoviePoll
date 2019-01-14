@@ -1,4 +1,20 @@
-/* a {
-    color: white;
-    left: -.5em;
-} */
+.button {
+    /* padding: 50 10 10 10; */
+    color: #ffffff;
+    /* background: #10284e; */
+    /* float: right; */
+    margin-top: 20px;
+    padding: 5px 5px 5px 5px;
+    border: 10px;
+    font-weight: 400;
+    background: #417690;
+    font-size: 18px;
+
+    margin-left: 10px;
+}
+
+.movie {
+    margin-top: 8px;
+    margin-left: 40px;
+    
+}
