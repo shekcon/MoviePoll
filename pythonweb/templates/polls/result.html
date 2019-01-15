@@ -6,7 +6,7 @@
     <h3>{{question.question_text}}</h3>
     <ul>
         {% for ans in result %}
-            <li class="movie">{{ ans.choice_text }}: {{ ans.votes }} votes</li>
+            <li class="result-movie">{{ ans.choice_text }}: {{ ans.votes }} votes</li>
         {% endfor%}
     </ul>
     <div class='available'>

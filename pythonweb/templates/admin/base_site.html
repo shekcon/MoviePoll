@@ -1,0 +1,17 @@
+{% extends 'admin/base.html' %}
+
+{% load static %}
+
+{% block title %}Intek{% endblock %}
+
+{% block branding %}
+    <h1 id="head">
+        <img src="{% static 'img/logo.svg' %}" alt="Intek" width="80" height="40"
+        class="brand_img"> Admin Area
+    </h1>
+{% endblock %}
+
+
+{% block extrastyle %}
+    {% include 'partials/_icon_title.html' %}
+{% endblock %}

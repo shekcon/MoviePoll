@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <title>The Intek Movie Friday Night Poll</title>
-
+    {% include 'partials/_icon_title.html' %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     {% block extrastyle %}
         
@@ -14,6 +14,5 @@
     {% include 'partials/_navbar.html' %}
     {% block context %}
     {% endblock %}
-
 </body>
 </html>

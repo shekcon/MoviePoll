@@ -1,7 +1,8 @@
 .error p {
     font: bold;
     color: red;
-    margin-left: 10px;
+    margin: auto;
+    margin-left: 30px;
 }
 
 .question h3 {
@@ -13,19 +14,14 @@
     padding: 5px 5px 5px 5px;
     font-weight: 400;
     font-size: 18px;
-    margin-left: 10px;
-    background: #30caa0;
+    margin-left: 40px;
+    background:  #10284e;
     color: #fff;
     border-radius: 8px;
 }
 
-.submit {
-    margin-top: 10px;
-    margin-left: 20px;
-}
-
-.submit button:hover {
-    background: #10284e; 
+.submit button:hover, .available a:hover {
+    background: #30caa0;
 }
 
 .movie {
@@ -47,14 +43,9 @@
 }
 
 .available a {
-    
     border-radius: 5px;
     color: #fff;
     padding: .5em;
     text-decoration: none;
-    background: #30caa0;
-}
-
-.available a:hover {
-    background: #10284e;
+    background:  #10284e;
 }

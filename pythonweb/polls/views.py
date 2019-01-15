@@ -27,7 +27,7 @@ def detail(request, question_id):
             movie.save()
             return redirect('result', question_id=question_id)
         else:
-            error = '- Please choice an option'
+            error = 'Please choice an option'
 
     question, answers = get_answer_question(question_id)
     content = {
