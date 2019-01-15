@@ -11,8 +11,11 @@
         <ul>
             
             {% for q in questions %}
-            <div>
-                <a href="{% url 'detail' q.id %}"> {{ q.question_text }}</a>
+            <div class='question'>
+                <li>
+                    <a href="{% url 'detail' q.id %}"> {{ q.question_text }}</a>
+                </li>
+                
             </div>
             {% endfor %}
         </ul>

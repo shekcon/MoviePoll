@@ -3,17 +3,37 @@
 {% load static %}
 
 {% block context %}
-    <h3> {{ question.question_text}}</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {% for ans in answers %}
-            <input type="radio" name='choice' value="{{ ans.id }}" class='movie'>{{ ans.choice_text}}<br>
-        {% endfor %}
-        <div>
-            <button type="submit"  class="button">Submit</button>
+    <div class="question">
+        <h3> {{ question.question_text}}</h3>
+    </div>
+    {% if answers %}
+    
+        <form method="POST" >
+            {% if error %}
+                <div class="error">
+                    <p>{{error}}</p>
+                </div>
+            {% endif %}
+            {% csrf_token %}
+            {% for ans in answers %}
+                <div class="movie">
+                    <input type="radio" name='choice' value="{{ ans.id }}">
+                    <p>{{ ans.choice_text}}</p>
+                </div>
+            {% endfor %}
+            <div class="submit">
+                <button type="submit"  > Submit </button>
+            </div>
+            
+        </form>
+    {% else %}
+    
+        <div class='available'>
+            <p>No available option</p>
+            <a href="{% url 'index' %}">Go back</a>
         </div>
-        
-    </form>
+
+    {% endif%}
 {% endblock %}
 
 {% block extrastyle %}

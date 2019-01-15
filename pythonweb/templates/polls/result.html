@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block context %}
     <h3>{{question.question_text}}</h3>
     <ul>
         {% for ans in result %}
-            <li>{{ ans.choice_text }}: {{ ans.votes }} votes</li>
+            <li class="movie">{{ ans.choice_text }}: {{ ans.votes }} votes</li>
         {% endfor%}
     </ul>
-    
+    <div class='available'>
+        <a href="{% url 'index' %}">Go back</a>
+    </div>
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}

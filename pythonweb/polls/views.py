@@ -18,18 +18,22 @@ def get_answer_question(_id):
 
 
 def detail(request, question_id):
-    
-    if request.method == 'POST' and request.POST.get('choice'):
-        print(request.POST)
-        movie = Choice.objects.get(id=request.POST.get('choice'))
-        movie.votes += 1
-        movie.save()
-        return redirect('result', question_id=question_id)
+    error = None
+    if request.method == 'POST':
+        if request.POST.get('choice'):
+            print(request.POST)
+            movie = Choice.objects.get(id=request.POST.get('choice'))
+            movie.votes += 1
+            movie.save()
+            return redirect('result', question_id=question_id)
+        else:
+            error = '- Please choice an option'
 
     question, answers = get_answer_question(question_id)
     content = {
         'question': question,
-        'answers': answers
+        'answers': answers,
+        'error': error
     }
     return render(request, 'polls/detail.html', content)
     

@@ -1,20 +1,60 @@
-.button {
-    /* padding: 50 10 10 10; */
-    color: #ffffff;
-    /* background: #10284e; */
-    /* float: right; */
-    margin-top: 20px;
-    padding: 5px 5px 5px 5px;
-    border: 10px;
-    font-weight: 400;
-    background: #417690;
-    font-size: 18px;
-
+.error p {
+    font: bold;
+    color: red;
     margin-left: 10px;
 }
 
+.question h3 {
+    margin-left: 20px;
+}
+
+.submit button {
+    margin-top: 20px;
+    padding: 5px 5px 5px 5px;
+    font-weight: 400;
+    font-size: 18px;
+    margin-left: 10px;
+    background: #30caa0;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.submit {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.submit button:hover {
+    background: #10284e; 
+}
+
 .movie {
-    margin-top: 8px;
     margin-left: 40px;
+    height: 30px;
+}
+
+.movie p, input { 
+    display: inline-block;
+}
+
+.available {
+    margin-left: 30px;
+    font-weight: bold;
+}
+
+.available p {
+    color: red;
+}
+
+.available a {
     
+    border-radius: 5px;
+    color: #fff;
+    padding: .5em;
+    text-decoration: none;
+    background: #30caa0;
+}
+
+.available a:hover {
+    background: #10284e;
 }

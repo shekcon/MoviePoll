@@ -11,6 +11,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class ChoiceAdmin(admin.ModelAdmin):
     list_display = ('id', 'choice_text', 'question', 'votes')
+    list_display_links = ('id', 'choice_text')
     list_filter = ('question',)
     list_per_page = 25
 
