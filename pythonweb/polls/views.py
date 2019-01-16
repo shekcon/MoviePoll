@@ -25,7 +25,7 @@ def detail(request, question_id):
             movie = Choice.objects.get(id=request.POST.get('choice'))
             movie.votes += 1
             movie.save()
-            return redirect('result', question_id=question_id)
+            return redirect('polls:result', question_id=question_id)
         else:
             error = 'Please choice an option'
 

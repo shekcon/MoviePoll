@@ -1,5 +1,10 @@
-.header h3 {
+.header div h3{
     text-align: center;
+    background: #30caa0;
+    color: #ffffff;
+    width: 800px;
+    /* height: 60px; */
+    /* vertical-align:middle; */
 }
 
 .header {
@@ -9,7 +14,7 @@
 
 .header ul {
     margin-top: 10px;
-    margin-left: 20%;
+    margin-left: 2%;
 }
 
 .question li {

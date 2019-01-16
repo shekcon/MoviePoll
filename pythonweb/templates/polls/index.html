@@ -7,13 +7,16 @@
     {% if not questions %}
         <h3> Don't have any available question</h3>
     {% else %}
-        <h3> List of Questions </h3>
+        <div>
+            <h3> List of Questions </h3>
+        </div>
+        
         <ul>
             
             {% for q in questions %}
             <div class='question'>
                 <li>
-                    <a href="{% url 'detail' q.id %}"> {{ q.question_text }}</a>
+                    <a href="{% url 'polls:detail' q.id %}"> {{ q.question_text }}</a>
                 </li>
                 
             </div>

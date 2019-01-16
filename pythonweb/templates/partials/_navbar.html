@@ -1,9 +1,12 @@
-
+{% load static %}
 <!-- Navbar -->
 <nav class="">
     <div class="container">
       <div class="link">
-        <a href="{% url 'index' %}">Polls</a>
+        <img src="{% static 'img/logo.svg' %}" alt="Intek" width="80" height="50"
+          class="brand_img">
+        <a href="{% url 'polls:index' %}">Polls</a>
+        
       </div>
     </div>
 </nav>
