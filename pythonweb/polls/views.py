@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def index(request, *args, **kwargs):
-    
+
     content = {
         'questions': Question.objects.all()
     }
@@ -22,13 +22,12 @@ def detail(request, question_id):
     error = None
     if request.method == 'POST':
         if request.POST.get('choice'):
-            print(request.POST)
             movie = Choice.objects.get(id=request.POST.get('choice'))
             movie.votes += 1
             movie.save()
             return HttpResponseRedirect(reverse('polls:result', args=(
                 question_id,
-                )))
+            )))
         else:
             error = 'Please choice an option'
 
@@ -39,7 +38,7 @@ def detail(request, question_id):
         'error': error
     }
     return render(request, 'polls/detail.html', content)
-    
+
 
 def result(request, question_id):
     question, answers = get_answer_question(question_id)
