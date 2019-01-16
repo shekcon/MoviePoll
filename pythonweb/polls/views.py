@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404
 from .models import Question, Choice
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -25,7 +26,9 @@ def detail(request, question_id):
             movie = Choice.objects.get(id=request.POST.get('choice'))
             movie.votes += 1
             movie.save()
-            return redirect('polls:result', question_id=question_id)
+            return HttpResponseRedirect(reverse('polls:result', args=(
+                question_id,
+                )))
         else:
             error = 'Please choice an option'
 
