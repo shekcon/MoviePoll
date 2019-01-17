@@ -1,36 +1,44 @@
 from django.test import TestCase
 from .models import Question, Choice
 from random import choice
+from json import load
+from pythonweb.settings import BASE_DIR
 
 
 # Create your tests here.
 class TestPolls(TestCase):
 
     index_page = '/'
-    id_submit = None
+    data = BASE_DIR + '/dump.json'
+    valid_ques = []
+    invalid_ques = []
 
     def setUp(self):
-        que_1 = Question.objects.create(
-            question_text="What movie to see on Friday 16/1/2019")
+        # Loading dump data
+        with open(self.data, 'r') as f:
+            dump_data = load(f)
 
-        # data test for submit form
-        self.id_submit = str(que_1.id)
-        dumps = ["GodFather", "Anime", "SAO", "Star War"]
-        for data in dumps:
-            que_1.answer.create(choice_text=data)
+        for obj in dump_data:
+            temp = Question.objects.create(question_text=obj['question'])
+            for movie in obj['choices']:
+                temp.answer.create(choice_text=movie)
+            if obj['choices']:
+                self.valid_ques.append(str(temp.id))
+            else:
+                self.invalid_ques.append(str(temp.id))
 
-        # test display and show button
-        Question.objects.create(
-            question_text="What movie to see on Sunday 20/1/2019")
-        Question.objects.create(
-            question_text="What movie to see on Monday 21/1/2019")
-        Question.objects.create(
-            question_text="What movie to see on Thursday 24/1/2019")
+    def test_was_reponsed_all_page(self):
+        # test home page
+        self.check_was_reponsed_200('')
 
-    def test_was_reponse_home_page(self):
-        reponse = self.client.get(self.index_page)
+        # test detail, result pages
         for que in Question.objects.all():
-            self.assertContains(reponse, que.question_text)
+            self.check_was_reponsed_200(str(que.id) + "/")
+            self.check_was_reponsed_200(str(que.id) + "/result/")
+    
+    def check_was_reponsed_200(self, url):
+        reponse = self.client.get(self.index_page + url)
+        self.assertEqual(reponse.status_code, 200)
 
     def test_was_show_detail_question(self):
         for ques in Question.objects.all():
@@ -44,14 +52,14 @@ class TestPolls(TestCase):
                 for movie in ques.answer.all():
                     self.assertContains(reponse, movie.choice_text)
 
-    def test_was_reponsed_result(self):
+    def test_was_content_reponsed_result(self):
         for ques in Question.objects.all():
             reponse = self.client.get(
                 self.index_page + str(ques.id) + "/result/")
             self.assertContains(reponse, 'Go back')
 
     def test_object_not_found(self):
-        for i in range(0, 100):
+        for i in range(0, 1000):
             reponse = self.client.get(self.index_page + str(i) + "/")
             try:
                 Question.objects.get(id=i)
@@ -59,19 +67,20 @@ class TestPolls(TestCase):
             except Question.DoesNotExist:
                 self.assertEqual(reponse.status_code, 404)
 
-    def test_submit_detail_page(self):
-        # test validation
-        reponse = self.client.post(self.index_page + str(self.id_submit) + "/")
-        self.assertContains(reponse, 'Please choice an option')
+    def test_handle_submit_page(self):
+        # test validation on valid question
+        for id_ques in self.valid_ques:
+            ques = Question.objects.get(id=id_ques)
+            reponse = self.client.post(self.index_page + str(ques.id) + "/")
+            self.assertContains(reponse, 'Please choice an option')
 
-        # test submit vote with dump date
-        for _ in range(0, 100):
-
-            test = choice(Question.objects.get(
-                id=self.id_submit).answer.all())
+        # test submit vote with dump data
+        for _ in range(0, 1000):
+            id_submit = choice(self.valid_ques)
+            test = choice(Question.objects.get(id=id_submit).answer.all())
             submit_value = test.votes + 1
-            reponse = self.client.post(self.index_page + str(self.id_submit) + "/", {
+            reponse = self.client.post(self.index_page + str(id_submit) + "/", {
                 'choice': str(test.id)
             })
-            self.assertEqual(
-                submit_value, Choice.objects.get(id=str(test.id)).votes)
+            self.assertRedirects(reponse, '/%s/result/' % (id_submit))
+            self.assertEqual(submit_value, Choice.objects.get(id=str(test.id)).votes)
