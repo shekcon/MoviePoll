@@ -3,13 +3,14 @@ from .models import Question, Choice
 from random import choice
 from json import load
 from pythonweb.settings import BASE_DIR
+from django.urls import reverse
 
 
 # Create your tests here.
 class TestPolls(TestCase):
 
     index_page = '/'
-    data = BASE_DIR + '/dump.json'
+    data = '%s/dump.json' % BASE_DIR
     valid_ques = []
     invalid_ques = []
 
@@ -29,16 +30,16 @@ class TestPolls(TestCase):
 
     def test_was_reponsed_all_page(self):
         # test home page
-        self.check_was_reponsed_200('')
+        self.check_was_reponsed_url('')
 
         # test detail, result pages
         for que in Question.objects.all():
-            self.check_was_reponsed_200(str(que.id) + "/")
-            self.check_was_reponsed_200(str(que.id) + "/result/")
+            self.check_was_reponsed_url(str(que.id) + "/")
+            self.check_was_reponsed_url(str(que.id) + "/result/")
     
-    def check_was_reponsed_200(self, url):
+    def check_was_reponsed_url(self, url, status_code=200):
         reponse = self.client.get(self.index_page + url)
-        self.assertEqual(reponse.status_code, 200)
+        self.assertEqual(reponse.status_code, status_code)
 
     def test_was_show_detail_question(self):
         for ques in Question.objects.all():
@@ -60,12 +61,8 @@ class TestPolls(TestCase):
 
     def test_object_not_found(self):
         for i in range(0, 1000):
-            reponse = self.client.get(self.index_page + str(i) + "/")
-            try:
-                Question.objects.get(id=i)
-                self.assertEqual(reponse.status_code, 200)
-            except Question.DoesNotExist:
-                self.assertEqual(reponse.status_code, 404)
+            if str(i) not in self.valid_ques + self.invalid_ques:
+                self.check_was_reponsed_url("%s/" % (i), 404)
 
     def test_handle_submit_page(self):
         # test validation on valid question
@@ -84,3 +81,13 @@ class TestPolls(TestCase):
             })
             self.assertRedirects(reponse, '/%s/result/' % (id_submit))
             self.assertEqual(submit_value, Choice.objects.get(id=str(test.id)).votes)
+
+
+    def test_reverse_url_from_namspace_and_name(self):
+        for i in range(0, 1000):
+            self.check_reverse_match_url_execpted(url_reverse='polls:detail', args=[i], expect_url='/%s/' % i)
+            self.check_reverse_match_url_execpted(url_reverse='polls:result', args=[i], expect_url='/%s/result/' % i)
+
+    def check_reverse_match_url_execpted(self, url_reverse, args, expect_url):
+        url = reverse(url_reverse, args=args)
+        self.assertEqual(url, expect_url)
