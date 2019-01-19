@@ -1,3 +1,21 @@
 .result-movie {
     margin-top: 10px;
 }
+
+h3 {
+    margin-left: 60px;
+}
+
+.percent-vote div{
+    border-style: groove;
+    width: 40%;
+    height: 20px;
+}
+
+#table {
+    width: 40%;
+}
+
+#votes-movie {
+    float:right;
+}

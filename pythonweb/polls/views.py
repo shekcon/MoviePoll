@@ -42,8 +42,10 @@ def detail(request, question_id):
 
 def result(request, question_id):
     question, answers = get_answer_question(question_id)
+    total_votes = sum([movie.votes for movie in answers])
     content = {
         'result': answers,
-        'question': question
+        'question': question,
+        'total_votes': total_votes
     }
     return render(request, 'polls/result.html', content)

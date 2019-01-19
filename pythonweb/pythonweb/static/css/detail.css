@@ -1,12 +1,18 @@
-.error p {
-    font: bold;
+#option { 
+    width: 20px;
+    height:20px;
+}
+
+.error h3 {
     color: red;
-    margin: auto;
-    margin-left: 30px;
+    /* margin: auto; */
+    margin-left: 50px;
+    
 }
 
 .question h3 {
     margin-left: 20px;
+    font-size: 30px;
 }
 
 .submit button {
@@ -29,8 +35,10 @@
     height: 30px;
 }
 
-.movie p, input { 
+.movie label, input { 
     display: inline-block;
+    vertical-align:middle;
+    font-size: 22px;
 }
 
 .available {

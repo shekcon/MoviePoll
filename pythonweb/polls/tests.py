@@ -46,10 +46,10 @@ class TestPolls(TestCase):
             reponse = self.client.get(self.index_page + str(ques.id) + "/")
             if not ques.answer.all():
                 self.assertContains(reponse, 'No available option')
-                self.assertContains(reponse, 'Go back')
-                self.assertNotContains(reponse, 'Submit')
+                self.assertContains(reponse, 'Return to Poll')
+                self.assertNotContains(reponse, 'Vote')
             else:
-                self.assertContains(reponse, 'Submit')
+                self.assertContains(reponse, 'Vote')
                 for movie in ques.answer.all():
                     self.assertContains(reponse, movie.choice_text)
 
@@ -57,7 +57,7 @@ class TestPolls(TestCase):
         for ques in Question.objects.all():
             reponse = self.client.get(
                 self.index_page + str(ques.id) + "/result/")
-            self.assertContains(reponse, 'Go back')
+            self.assertContains(reponse, 'Return to Poll')
 
     def test_object_not_found(self):
         for i in range(0, 1000):

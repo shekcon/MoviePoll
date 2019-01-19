@@ -11,18 +11,18 @@
         <form method="POST" >
             {% if error %}
                 <div class="error">
-                    <p>{{error}}</p>
+                    <h3>{{error}}</h3>
                 </div>
             {% endif %}
             {% csrf_token %}
             {% for ans in answers %}
                 <div class="movie">
-                    <input type="radio" name='choice' value="{{ ans.id }}">
-                    <p>{{ ans.choice_text}}</p>
+                    <input id='option' type="radio" name='choice' value="{{ ans.id }}">
+                    <label>{{ ans.choice_text}}</label>
                 </div>
             {% endfor %}
             <div class="submit">
-                <button type="submit"  > Submit </button>
+                <button type="submit" style="font-size: 24px;"><strong> Vote </strong></button>
             </div>
             
         </form>
@@ -30,7 +30,7 @@
     
         <div class='available'>
             <p>No available option</p>
-            <a href="{% url 'polls:index' %}">Go back</a>
+            <a href="{% url 'polls:index' %}">Return to Poll</a>
         </div>
 
     {% endif%}

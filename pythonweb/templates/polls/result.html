@@ -4,13 +4,37 @@
 
 {% block context %}
     <h3>{{question.question_text}}</h3>
-    <ul>
-        {% for ans in result %}
-            <li class="result-movie">{{ ans.choice_text }}: {{ ans.votes }} votes</li>
-        {% endfor%}
-    </ul>
+    {% if result %}
+        <ul>
+            {% for movie in result %}
+                <li class="result-movie" id='table'>
+                    <div>
+                        <span>{{ movie.choice_text }}</span>
+                        <span id='votes-movie'> 
+                            <strong>{% widthratio movie.votes total_votes 100 %}%</strong>  ({{ movie.votes }} votes)</span>
+                    </div>
+                    
+                </li>
+                <div class='percent-vote'>
+                    <div>
+                        <div style="width: {% widthratio movie.votes total_votes 100 %}%;
+                                    background: #ADD8E6;
+                                    border-style: none">
+        
+                        </div>
+                    </div>
+                </div>
+                
+            {% endfor%}
+            <br>
+            <span>Total votes: {{ total_votes }}</span>
+        </ul>
+        
+    {% else %}
+
+    {% endif %}
     <div class='available'>
-        <a href="{% url 'polls:index' %}">Go back</a>
+        <a href="{% url 'polls:index' %}">Return to Poll</a>
     </div>
 {% endblock %}
 
