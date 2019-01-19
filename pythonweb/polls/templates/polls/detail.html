@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block context %}
+    <div class="question">
+        <h3> {{ question.question_text}}</h3>
+    </div>
+    {% if answers %}
+    
+    <form method="POST" >
+        {% if error %}
+            <div class="error">
+                <h3>{{error}}</h3>
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        {% for ans in answers %}
+            <div class="movie">
+                <input id='option' type="radio" name='choice' value="{{ ans.id }}">
+                <label>{{ ans.choice_text}}</label>
+            </div>
+        {% endfor %}
+            <div class="submit">
+                <input type="submit" value="Vote">
+            </div>
+        
+    </form>
+    {% else %}
+    
+        <div class='available'>
+            <p>No available option</p>
+            <a href="{% url 'polls:index' %}">Return to Poll</a>
+        </div>
+
+    {% endif%}
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}

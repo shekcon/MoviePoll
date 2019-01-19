@@ -26,16 +26,24 @@
     border-radius: 8px;
 }
 
-.submit button:hover, .available a:hover {
+.submit input:hover, .available a:hover {
     background: #30caa0;
 }
 
-.movie {
-    margin-left: 40px;
-    height: 30px;
+.submit input {
+    padding: 8px 20px 8px 20px;
+    margin-left: 43%;
+    font-size: 25px;
+    background: #10284e;
+    border-radius: 12px;
+    color: #fff;
 }
 
-.movie label, input { 
+.movie {
+    margin-left: 20%;
+}
+
+.movie label,.movie input { 
     display: inline-block;
     vertical-align:middle;
     font-size: 22px;

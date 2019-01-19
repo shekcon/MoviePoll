@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block context %}
-    <h3>{{question.question_text}}</h3>
+    <h3 id='main-header'>{{question.question_text}}</h3>
     {% if result %}
         <ul>
             {% for movie in result %}
@@ -13,18 +13,13 @@
                         <span id='votes-movie'> 
                             <strong>{% widthratio movie.votes total_votes 100 %}%</strong>  ({{ movie.votes }} votes)</span>
                     </div>
-                    
                 </li>
-                <div class='percent-vote'>
+                <div class='main-vote'>
                     <div>
-                        <div style="width: {% widthratio movie.votes total_votes 100 %}%;
-                                    background: #ADD8E6;
-                                    border-style: none">
-        
+                        <div id='vote-detail'style="width: {% widthratio movie.votes total_votes 100 %}%;">
                         </div>
                     </div>
                 </div>
-                
             {% endfor%}
             <br>
             <span>Total votes: {{ total_votes }}</span>

@@ -1,0 +1,32 @@
+.fixer-container {
+    float: left;
+    position: relative;
+    left: -50%;
+}
+
+#main-question {
+    margin-top: 20px;
+    padding: 20px;
+    border-style: groove;
+    border-radius: 20px;
+    border-width: 1px;
+}
+
+.main-container {
+    float: left;
+    position: relative;
+    left: 50%;
+    /* overflow: visible; */
+}
+
+#main-header {
+    text-align: center;
+    position: relative;
+    width: 700px;
+}
+
+@media screen and (max-width:750px) {
+    #main-header {
+      width:100%;
+    }
+}

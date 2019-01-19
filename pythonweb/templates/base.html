@@ -6,13 +6,19 @@
     <title>The Intek Movie Friday Night Poll</title>
     {% include 'partials/_icon_title.html' %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extrastyle %}
         
     {% endblock %}
 </head>
 <body>
     {% include 'partials/_navbar.html' %}
-    {% block context %}
-    {% endblock %}
+    <div class='main-container'>
+        <div class='fixer-container' id='main-question'>
+            {% block context %}
+            {% endblock %}
+        </div> 
+    </div>
+    
 </body>
 </html>
