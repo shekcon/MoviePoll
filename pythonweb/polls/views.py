@@ -3,7 +3,6 @@ from .models import Question, Choice
 from django.http import HttpResponseRedirect
 
 
-# Create your views here.
 def index(request, *args, **kwargs):
 
     content = {
