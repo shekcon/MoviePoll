@@ -1,15 +1,33 @@
+body{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment:fixed;
+    min-height:100%;
+}
+
+
 .fixer-container {
     float: left;
     position: relative;
     left: -50%;
+    background: #ffffff;
+    
 }
 
 #main-question {
     margin-top: 20px;
     padding: 20px;
-    border-style: groove;
+    border-style: solid;
     border-radius: 20px;
     border-width: 1px;
+}
+
+#ml-15{
+    margin-left: 15%; 
+}
+
+#ml-5 {
+    margin-left: 5%; 
 }
 
 .main-container {
@@ -21,6 +39,7 @@
 #main-header {
     text-align: center;
     position: relative;
+    font-size: 30px;
     width: 700px;
 }
 

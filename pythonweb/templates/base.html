@@ -11,14 +11,18 @@
         
     {% endblock %}
 </head>
-<body>
-    {% include 'partials/_navbar.html' %}
-    <div class='main-container'>
-        <div class='fixer-container' id='main-question'>
-            {% block context %}
-            {% endblock %}
-        </div> 
+<body style="background-image: url({% static 'img/background.jpg' %});">
+    <div class='main-img' >
+    <div id='main-body'>
+        {% include 'partials/_navbar.html' %}
+        <div class='main-container'>
+            <div class='fixer-container' id='main-question'>
+                {% block context %}
+                {% endblock %}
+            </div> 
+        </div>
     </div>
+    
     
 </body>
 </html>

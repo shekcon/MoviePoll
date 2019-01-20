@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 def index(request, *args, **kwargs):
 
     content = {
-        'questions': Question.objects.all()
+        'questions': Question.objects.order_by('-pub_date')
     }
     return render(request, 'polls/index.html', content)
 

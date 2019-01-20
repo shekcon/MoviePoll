@@ -4,7 +4,7 @@
 
 {% block context %}
     <div class="question">
-        <h3> {{ question.question_text}}</h3>
+        <h3 id="main-header"> {{ question.question_text}}</h3>
     </div>
     {% if answers %}
     
@@ -28,9 +28,10 @@
     </form>
     {% else %}
     
-        <div class='available'>
-            <p>No available option</p>
-            <a href="{% url 'polls:index' %}">Return to Poll</a>
+        <div class='available' >
+            <p id="ml-15">No available option</p>
+            <br>
+            <a id="ml-15" href="{% url 'polls:index' %}">Return to Poll</a>
         </div>
 
     {% endif%}
