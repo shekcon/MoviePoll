@@ -1,11 +1,10 @@
-#option { 
+#option input { 
     width: 20px;
     height:20px;
 }
 
 .error h3 {
     color: red;
-    /* margin: auto; */
     margin-left: 50px;
     
 }
@@ -31,16 +30,16 @@
 }
 
 .submit input {
+    margin-top: 10px;
     padding: 8px 20px 8px 20px;
-    margin-left: 43%;
     font-size: 25px;
     background: #10284e;
     border-radius: 12px;
     color: #fff;
 }
 
-.movie {
-    margin-left: 20%;
+.movie, .submit input {
+    margin-left: 15%;
 }
 
 .movie label,.movie input { 
@@ -64,4 +63,10 @@
     padding: .5em;
     text-decoration: none;
     background:  #10284e;
+}
+
+@media screen and (max-width:750px) {
+    .movie, .submit input {
+        margin: auto;
+    }
 }

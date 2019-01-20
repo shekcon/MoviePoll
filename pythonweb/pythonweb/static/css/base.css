@@ -14,9 +14,8 @@
 
 .main-container {
     float: left;
-    position: relative;
-    left: 50%;
-    /* overflow: visible; */
+    position: absolute;
+    left: 50%;  
 }
 
 #main-header {

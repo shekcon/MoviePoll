@@ -9,9 +9,14 @@
             {% for movie in result %}
                 <li class="result-movie" id='table'>
                     <div>
-                        <span>{{ movie.choice_text }}</span>
-                        <span id='votes-movie'> 
+                        <div id='choice-vote'>
+                            <span>{{ movie.choice_text }}</span>
+                        </div>
+                        <div id='votes-movie'>
+                            <span > 
                             <strong>{% widthratio movie.votes total_votes 100 %}%</strong>  ({{ movie.votes }} votes)</span>
+                        </div>
+                        
                     </div>
                 </li>
                 <div class='main-vote'>

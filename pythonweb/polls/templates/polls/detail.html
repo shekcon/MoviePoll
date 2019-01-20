@@ -16,9 +16,9 @@
         {% endif %}
         {% csrf_token %}
         {% for ans in answers %}
-            <div class="movie">
-                <input id='option' type="radio" name='choice' value="{{ ans.id }}">
-                <label>{{ ans.choice_text}}</label>
+            <div class="movie" id='option'>
+                <input type="radio" id="choice{{ forloop.counter }}" name='choice' value="{{ ans.id }}">
+                <label for="choice{{ forloop.counter }}">{{ ans.choice_text }}</label>
             </div>
         {% endfor %}
             <div class="submit">
