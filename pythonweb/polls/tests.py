@@ -9,23 +9,17 @@ from django.urls import reverse
 class TestPolls(TestCase):
 
     index_page = '/'
-    data = '%s/dump.json' % BASE_DIR
-    valid_ques = []
-    invalid_ques = []
+    data_test = '%s/dump.json' % BASE_DIR
 
     def setUp(self):
         # Loading dump data
-        with open(self.data, 'r') as f:
+        with open(self.data_test, 'r') as f:
             dump_data = load(f)
 
         for obj in dump_data:
             temp = Question.objects.create(question_text=obj['question'])
             for movie in obj['choices']:
                 temp.answer.create(choice_text=movie)
-            if obj['choices']:
-                self.valid_ques.append(str(temp.id))
-            else:
-                self.invalid_ques.append(str(temp.id))
 
     def test_was_reponsed_all_page(self):
         # test home page
@@ -41,19 +35,25 @@ class TestPolls(TestCase):
         self.assertEqual(reponse.status_code, status_code)
 
     def test_was_no_available_choices(self):
-        for ques_id in self.invalid_ques:
+        for ques_id in self.get_questions_no_option():
             reponse = self.client.get(self.index_page + str(ques_id) + "/")
             self.assertContains(reponse, 'No available option')
             self.assertContains(reponse, 'Return to Poll')
             self.assertNotContains(reponse, 'Vote')
 
+    def get_questions_no_option(self):
+        return [ques.id for ques in Question.objects.all() if not ques.answer.count()]
+
     def test_was_show_detail_question(self):
-        for ques_id in self.valid_ques:
-            reponse = self.client.get(self.index_page + ques_id + "/")
+        for ques_id in self.get_question_have_option():
+            reponse = self.client.get(self.index_page + str(ques_id) + "/")
             ques = Question.objects.get(id=ques_id)
             self.assertContains(reponse, 'Vote')
             for movie in ques.answer.all():
                 self.assertContains(reponse, movie.choice_text)
+
+    def get_question_have_option(self):
+        return [ques.id for ques in Question.objects.all() if ques.answer.count()]
 
     def test_was_content_reponsed_result(self):
         for ques in Question.objects.all():
@@ -62,19 +62,19 @@ class TestPolls(TestCase):
             self.assertContains(reponse, 'Return to Poll')
 
     def test_object_not_found(self):
-        for i in range(0, 1000):
-            if str(i) not in self.valid_ques + self.invalid_ques:
-                self.check_was_reponsed_url("%s/" % (i), 404)
+        for i in range(100, 1000):
+            self.check_was_reponsed_url("%s/" % (i), 404)
 
     def test_invalid_submit_page(self):
-        for id_ques in self.valid_ques:
+        for id_ques in self.get_question_have_option():
             ques = Question.objects.get(id=id_ques)
             reponse = self.client.post(self.index_page + str(ques.id) + "/")
             self.assertContains(reponse, 'Please choice an option')
 
     def test_valid_submit_page(self):
+        valid = self.get_question_have_option()
         for _ in range(0, 1000):
-            id_submit = choice(self.valid_ques)
+            id_submit = choice(valid)
             test = choice(Question.objects.get(id=id_submit).answer.all())
             submit_value = test.votes + 1
             reponse = self.client.post(self.index_page + str(id_submit) + "/", {
