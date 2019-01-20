@@ -1,1 +1,2 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/39b8ed5d359c490daca9a75f8ba2468c)](https://app.codacy.com/app/Shekcon/MoviePoll?utm_source=github.com&utm_medium=referral&utm_content=Shekcon/MoviePoll&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/Shekcon/MoviePoll.svg?branch=master)](https://travis-ci.com/Shekcon/MoviePoll)
