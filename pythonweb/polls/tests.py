@@ -6,7 +6,6 @@ from pythonweb.settings import BASE_DIR
 from django.urls import reverse
 
 
-# Create your tests here.
 class TestPolls(TestCase):
 
     index_page = '/'
@@ -41,17 +40,20 @@ class TestPolls(TestCase):
         reponse = self.client.get(self.index_page + url)
         self.assertEqual(reponse.status_code, status_code)
 
+    def test_was_no_available_choices(self):
+        for ques_id in self.invalid_ques:
+            reponse = self.client.get(self.index_page + str(ques_id) + "/")
+            self.assertContains(reponse, 'No available option')
+            self.assertContains(reponse, 'Return to Poll')
+            self.assertNotContains(reponse, 'Vote')
+
     def test_was_show_detail_question(self):
-        for ques in Question.objects.all():
-            reponse = self.client.get(self.index_page + str(ques.id) + "/")
-            if not ques.answer.all():
-                self.assertContains(reponse, 'No available option')
-                self.assertContains(reponse, 'Return to Poll')
-                self.assertNotContains(reponse, 'Vote')
-            else:
-                self.assertContains(reponse, 'Vote')
-                for movie in ques.answer.all():
-                    self.assertContains(reponse, movie.choice_text)
+        for ques_id in self.valid_ques:
+            reponse = self.client.get(self.index_page + ques_id + "/")
+            ques = Question.objects.get(id=ques_id)
+            self.assertContains(reponse, 'Vote')
+            for movie in ques.answer.all():
+                self.assertContains(reponse, movie.choice_text)
 
     def test_was_content_reponsed_result(self):
         for ques in Question.objects.all():
@@ -64,14 +66,13 @@ class TestPolls(TestCase):
             if str(i) not in self.valid_ques + self.invalid_ques:
                 self.check_was_reponsed_url("%s/" % (i), 404)
 
-    def test_handle_submit_page(self):
-        # test validation on valid question
+    def test_invalid_submit_page(self):
         for id_ques in self.valid_ques:
             ques = Question.objects.get(id=id_ques)
             reponse = self.client.post(self.index_page + str(ques.id) + "/")
             self.assertContains(reponse, 'Please choice an option')
 
-        # test submit vote with dump data
+    def test_valid_submit_page(self):
         for _ in range(0, 1000):
             id_submit = choice(self.valid_ques)
             test = choice(Question.objects.get(id=id_submit).answer.all())
@@ -80,13 +81,12 @@ class TestPolls(TestCase):
                 'choice': str(test.id)
             })
             self.assertRedirects(reponse, '/%s/result/' % (id_submit))
-            self.assertEqual(submit_value, Choice.objects.get(id=str(test.id)).votes)
-
+            self.assertEqual(submit_value, Choice.objects.get(id=test.id).votes)
 
     def test_reverse_url_from_namspace_and_name(self):
         for i in range(0, 1000):
-            self.check_reverse_match_url_execpted(url_reverse='polls:detail', args=[i], expect_url='/%s/' % i)
-            self.check_reverse_match_url_execpted(url_reverse='polls:result', args=[i], expect_url='/%s/result/' % i)
+            self.check_reverse_match_url_execpted(url_reverse='polls:detail', args=[i], expect_url='%s%s/' % (self.index_page, i))
+            self.check_reverse_match_url_execpted(url_reverse='polls:result', args=[i], expect_url='%s%s/result/' % (self.index_page, i))
 
     def check_reverse_match_url_execpted(self, url_reverse, args, expect_url):
         url = reverse(url_reverse, args=args)
