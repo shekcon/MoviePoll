@@ -2,3 +2,5 @@ django
 pylint
 pylint-django
 pep8
+coverage
+codacy-coverage

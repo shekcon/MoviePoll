@@ -28,7 +28,7 @@ jobs:
           - v1-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install Dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
@@ -45,11 +45,13 @@ jobs:
       # https://pytest.org
       # https://nose.readthedocs.io
       - run:
-          name: run tests
+          name: Run TestCase
           command: |
             . venv/bin/activate
             cd pythonweb
             python manage.py test polls
+            coverage xml **/*.py
+            python-codacy-coverage -r coverage.xml
 
       - store_artifacts:
           path: test-reports
