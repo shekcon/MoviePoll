@@ -4,25 +4,24 @@
 
 {% block context %}
   
-    <div class="header">
-      {% if not questions %}
-        <h3 id="main-header"> Don't have any available question</h3>
-      {% else %}
-      <div>
-        <h3 id="main-header"> List of Questions </h3>
+  <div class="header">
+    {% if not questions %}
+      <h3 id="main-header"> Don't have any available question</h3>
+    {% else %}
+    <div>
+      <h3 id="main-header"> List of Questions </h3>
+    </div>
+    <ul>
+      {% for q in questions %}
+      <div class='question'>
+        <li>
+          <a href="{% url 'polls:detail' q.id %}"> {{ q.question_text }}</a>
+        </li>
       </div>
-      
-      <ul>
-        {% for q in questions %}
-        <div class='question'>
-          <li>
-              <a href="{% url 'polls:detail' q.id %}"> {{ q.question_text }}</a>
-          </li>
-        </div>
-        {% endfor %}
-      </ul>
+      {% endfor %}
+    </ul>
     {% endif %}
-      </div>   
+  </div>   
     
 {% endblock %}
 

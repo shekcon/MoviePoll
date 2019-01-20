@@ -1,5 +1,5 @@
 .header div h3{
-    background: #30caa0;
+    background: #07589b;
     color: #ffffff;
 }
 
@@ -19,9 +19,14 @@
 }
 
 .question a {
-    text-decoration: none;
+    color: #2F4F4F;
+    font-weight: bold;
 }
 
 .question a:hover {
     color: #07589b;
+}
+
+.question a{
+    text-decoration: none;
 }
